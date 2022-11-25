@@ -5,4 +5,4 @@ Concept: This is a page where random people motivate each other by sharing motiv
 
 Design:  The website has a minimalistic approach to design.  It contains three main pages: Login page, registering page and main page. The main page renders messages sent all across the web.  
 
-Tools: For the implementation of this website I have used, HTML, CSS (w/ Bootstrap), SQLite3, Python 3, Jinja2. 
+Tools: For the implementation of this website I have used, HTML, CSS (w/ Bootstrap), SQLite3, Python 3, Flask & Jinja2. 
