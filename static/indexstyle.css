@@ -7,12 +7,50 @@
 body {
     margin: 0;
     font-family: 'Patrick Hand', cursive;
+}
+
+  .pageTitle {
+    font-size: 80px;
+    padding-left: 8px;
+  }
+  
+  .pageSubTitle {
+    text-align: right;
+    padding: 15px 45px;
+    font-size: 35px;
+  }
+  
+  .emoji {
+    font-size: 14px;
   }
 
-  @media (max-width: 580px) {
-    max-width: 1000px;
+  @media screen and (max-width: 580px) {
+    /*max-width: 1000px;*/
+    .pageTitle {
+    font-size: 60px;
+    padding: 0;
+    margin: 0;
   }
+  .pageSubTitle {
+    margin-top: -24px;
+  }
+  .emoji {
+    font-size: 10px;
+  }
+}
 
-  @media (max-width: 400px) {
-    max-width: 800px;
-  }
+@media (max-width: 400px) {
+    /*max-width: 800px;*/
+}
+  @media screen and (max-width: 1360px) {
+    .pageSubTitle {
+      padding: 0px 10px;
+      font-size: 18px;
+    }
+}
+
+@media screen and (max-height: 800px) {
+      .pageSubTitle {
+        color: transparent;
+    }
+}
