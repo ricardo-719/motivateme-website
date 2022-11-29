@@ -44,3 +44,39 @@ def index():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("index.html")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user"""
+    # Forget any user_id
+    session.clear()
+    if request.method == "POST":
+        # Validate submission: No empty fields, password and confirmation match
+        if not request.form.get("username"):
+            flash("Invalid username. Please try again")
+            return render_template("register.html")
+        if not request.form.get("password") or request.form.get("password") != request.form.get("confirmation"):
+            flash("Invalid password. Please try again.")
+            return render_template("register.html")
+        else:
+            # Password requirements verification following regular expressions defined
+            reg = "(?=.*[A-Z])(?=.*[0-9])(?=.{8,}$)"
+            match_re = re.compile(reg)
+            res = re.search(match_re, request.form.get("password"))
+            if res:
+                username = request.form.get("username")
+                password = request.form.get("password")
+                hash = generate_password_hash(password)
+                try:
+                    # Add user to the database
+                    db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", username, hash)
+                except:
+                    flash("Something went wrong. Please try again.")
+                    return render_template("register.html")
+                return redirect("/feed")
+            else:
+                flash("Password must contain (1) uppercase and (1) digit. At least (8) chars long.")
+                return render_template("register.html")
+    else:
+        return render_template("register.html")

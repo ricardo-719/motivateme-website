@@ -37,6 +37,13 @@
                     <p>quotes, ideas & stories with random</p>
                     <p>people around the world wide web"</p>
                 </div>
+                {% if get_flashed_messages() %}
+                <div class="absolute left-1/2 top-1/3 -translate-x-1/2 translate-y-32">
+                    <div id="flashNotification" class="alert alert-primary mb-0 text-center" role="alert">
+                        {{ get_flashed_messages() | join(" ") }}
+                    </div>
+                </div>
+                {% endif %}
                 <img src="https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg" alt="Curious dog"
                 class="object-cover">
                 {% block main %}{% endblock %}

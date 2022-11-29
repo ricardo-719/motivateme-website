@@ -1,0 +1,21 @@
+{% extends "layout-index.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="mb-3 absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-28">
+            <input autocomplete="off" autofocus class="form-control block mx-auto w-auto border-2" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="mb-3 absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-12">
+            <input class="form-control block mx-auto w-auto border-2" name="password" placeholder="Password" type="password">
+            <p style="font-size: 12px;">Password must contain one uppercase and one digit. At least 8 char long.</p>
+        </div>
+        <div class="mb-3 absolute left-1/2 top-1/3 -translate-x-1/2 translate-y-5">
+            <input class="form-control block mx-auto w-auto border-2" name="confirmation" placeholder="Confirmation" type="password">
+        </div>
+        <button class="absolute left-1/2 top-1/3 -translate-x-1/2 translate-y-16 btn btn-primary" type="submit">😊Register😊</button>
+    </form>
+{% endblock %}
