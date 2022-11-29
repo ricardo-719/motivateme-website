@@ -80,3 +80,41 @@ def register():
                 return render_template("register.html")
     else:
         return render_template("register.html")
+
+@app.route("/feed", methods=["GET", "POST"])
+@login_required
+def feed():
+    #Call username using id to render on feed
+    username = db.execute("SELECT * FROM accounts WHERE id = ?", session["user_id"])[0]["username"]
+    """Show landing page"""
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+        if not request.form.get("message"):
+            flash("Please input in a message.")
+            return render_template("feed.html", username=username)
+        message = request.form.get("message")
+        username = db.execute("SELECT * FROM accounts WHERE id = ?", session["user_id"])[0]["username"]
+        try:
+            # Add to the database
+            db.execute("INSERT INTO posts (user_id, username, message, date) VALUES(?, ?, ?, datetime('now', 'localtime'))",
+                        session["user_id"], username, message)
+            return redirect("/feed")
+        except:
+            flash("Fatal Error")
+            postFeed = db.execute("SELECT username, message, date FROM posts ORDER BY id DESC")
+            return render_template("feed.html", username=username)
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        postFeed = db.execute("SELECT * FROM posts ORDER BY id DESC")
+        return render_template("feed.html", username=username, postFeed=postFeed)
+
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    # Redirect user to login form
+    return redirect("/")
