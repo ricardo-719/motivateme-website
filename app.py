@@ -35,15 +35,7 @@ def after_request(response):
 @app.route("/")
 def index():
     """Show landing page"""
-    # User reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-
-        # Redirect user to home page
-        return redirect("/feed")
-
-    # User reached route via GET (as by clicking a link or via redirect)
-    else:
-        return render_template("index.html")
+    return render_template("index.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -109,6 +101,44 @@ def feed():
         return render_template("feed.html", username=username, postFeed=postFeed)
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Log user in"""
+    # Forget any user_id
+    session.clear()
+
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            flash("Please insert username.")
+            return render_template("login.html")
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            flash("Please insert password.")
+            return render_template("login.html")
+
+        # Query database for username
+        currentUser = db.execute("SELECT * FROM accounts WHERE username = ?", request.form.get("username"))
+
+        # Ensure username exists and password is correct
+        if len(currentUser) != 1 or not check_password_hash(currentUser[0]["hash"], request.form.get("password")):
+            flash("invalid username and/or password")
+            return render_template("login.html")
+
+        # Remember which user has logged in
+        session["user_id"] = currentUser[0]["id"]
+
+        # Redirect user to home page
+        return redirect("/feed")
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("login.html")
+
+
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -118,3 +148,31 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
+
+
+# The delete route purpose is to allow users to delete their post.
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def delete():
+    """Delete posts"""
+    if request.method == "POST":
+        postId = request.form.get("postId")
+        # Verify user has the credentials to delete post
+        if session["user_id"] == 2:
+            flash("You are Anonymous. You have no delete post privileges ☹️. Please refresh page.")
+            return(redirect("/feed"))
+        ownership = db.execute("SELECT * FROM posts WHERE user_id = ? AND id = ?", session["user_id"], postId)
+        if ownership == 0:
+            try:
+                #db.execute("SELECT * FROM posts WHERE user_id = ? AND id = ?", session["user_id"], postId)[0]["id"]
+                db.execute("DELETE FROM posts WHERE user_id = ? AND id = ?", session["user_id"], postId)
+                #db.execute #to delete the post corresponding to the postID
+                return redirect("/feed")
+            except:
+                flash("Something went wrong, please try again.")
+                return(redirect("/feed"))
+        else:
+            flash("Sorry, can't delete. You do NOT own this post ☹️. Moderators will look into it 🧐.")
+            return(redirect("/feed"))
+    else:
+        return ("/feed")

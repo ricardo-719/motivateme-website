@@ -60,6 +60,15 @@
     margin: 6px;
   }
 
+  #posts-overlay {
+    overflow-y: scroll;
+    height: 97vh;
+  }
+
+  #delButton {
+    border: none;
+  }
+
   @media screen and (max-width: 580px) {
       /*max-width: 1000px;*/
       .pageTitle {

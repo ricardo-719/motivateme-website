@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}}
-<div class="container absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<div class="container absolute top-1/4 left-1/2 -translate-x-1/2" id="posts-overlay">
     <br><br>
     <span id="notice">You are signed in as {{ username }} (<a href="/logout"><b>Log Out</b></a>)</span>
     <form action="/feed" method="post">
@@ -20,6 +20,7 @@
             <div class="card-body">
                     <div class="card-title"><strong><h4>"{{ post.username }}"</h4><h4>{{ post.date }}</h4></strong></div>
                     <div class="card-text">{{ post.message }}</div>
+                    <form action="/delete" method="post"><button name="postId" id="delButton" type="submit" value="{{ post.id }}">🗑️</button> </form>
             </div>
     </div>
     {% endfor %}
