@@ -1,5 +1,5 @@
 # MotivateMe
-#### Video Demo:  <URL>
+#### Video Demo: [CS50 Video Presentation](https://youtu.be/Q60BL9z3cns)
 ### Description:
 This is a fun web app for the **Final Project of CS50: Introduction to Computer Science**. I decided to make a web application that takes a minimalistic approach. In real life usage people would use this website to share motivational or philosophical ideas and thoughts. People would be able to connect and network in a similar way Twitter does but with the clear purpose of uplifting each other and providing moral support to others. In its initial state the website only supports a global *“feed”* page where all posts are shared, the users can read, create, and delete messages. In the future I’m planning to expand its features, allowing users to connect and follow each other, like posts, search terms, and much more!
 ### Concept: 
