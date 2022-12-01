@@ -63,7 +63,7 @@ This project contains three (3) folders and four (4) files. Each folder has a nu
 
   - [File] feedstyle.css
 
-    This is the CSS file corresponding to the feed page. CSS files has been separate it for clarity and better organize the files.
+    This is the CSS file corresponding to the feed page. CSS files has been separated it for clarity and better organize the files.
 
   - [File] indexstyle.css
 
@@ -101,7 +101,7 @@ This project contains three (3) folders and four (4) files. Each folder has a nu
 
 - [File] app.py
 
-  This is the main python file. It controls all the features of the site and support the management of the database as well as the rederization of the pages. This is the heart of the project. The design of this file was deeply influenced by the Finance pset exercise, and *some of its line of code were borrowed from that problem*. However, most of the code was created anew the for the purpose of this project.
+  This is the main python file. It controls all the features of the site and support the management of the database as well as the rendering of the pages. This is the heart of the project. The design of this file was deeply influenced by the Finance pset exercise, and *some of its lines of code were borrowed from that problem*. However, most of the code was created anew the for the purpose of this project.
 
 - [File] helpers.py
 
